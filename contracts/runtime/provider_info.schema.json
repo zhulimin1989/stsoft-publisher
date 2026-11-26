@@ -1,0 +1,460 @@
+{
+  "$id": "https://schemas.tokenplatform.dev/publisher/runtime/provider_info.v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "visibility": {
+            "const": "dedicated_only"
+          }
+        },
+        "required": [
+          "visibility"
+        ],
+        "type": "object"
+      },
+      "then": {
+        "properties": {
+          "allowed_route_kinds": {
+            "items": {
+              "const": "dedicated_route"
+            },
+            "maxItems": 1,
+            "minItems": 1,
+            "type": "array"
+          },
+          "credential_source": {
+            "enum": [
+              "dedicated_upstream",
+              "provider_entitlement"
+            ]
+          },
+          "visibility": {
+            "const": "dedicated_only"
+          }
+        },
+        "required": [
+          "visibility",
+          "credential_source",
+          "allowed_route_kinds"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "allowed_route_kinds": {
+            "items": {
+              "const": "dedicated_route"
+            },
+            "maxItems": 1,
+            "minItems": 1,
+            "type": "array"
+          }
+        },
+        "required": [
+          "allowed_route_kinds"
+        ],
+        "type": "object"
+      },
+      "then": {
+        "properties": {
+          "allowed_route_kinds": {
+            "items": {
+              "const": "dedicated_route"
+            },
+            "maxItems": 1,
+            "minItems": 1,
+            "type": "array"
+          },
+          "credential_source": {
+            "enum": [
+              "dedicated_upstream",
+              "provider_entitlement"
+            ]
+          },
+          "visibility": {
+            "const": "dedicated_only"
+          }
+        },
+        "required": [
+          "visibility",
+          "credential_source",
+          "allowed_route_kinds"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "credential_source": {
+            "enum": [
+              "dedicated_upstream",
+              "provider_entitlement"
+            ]
+          }
+        },
+        "required": [
+          "credential_source"
+        ],
+        "type": "object"
+      },
+      "then": {
+        "properties": {
+          "allowed_route_kinds": {
+            "items": {
+              "const": "dedicated_route"
+            },
+            "maxItems": 1,
+            "minItems": 1,
+            "type": "array"
+          },
+          "credential_source": {
+            "enum": [
+              "dedicated_upstream",
+              "provider_entitlement"
+            ]
+          },
+          "visibility": {
+            "const": "dedicated_only"
+          }
+        },
+        "required": [
+          "visibility",
+          "credential_source",
+          "allowed_route_kinds"
+        ]
+      }
+    }
+  ],
+  "properties": {
+    "allowed_route_kinds": {
+      "default": [
+        "model_route",
+        "product_route"
+      ],
+      "items": {
+        "enum": [
+          "dedicated_route",
+          "model_route",
+          "product_route"
+        ],
+        "type": "string"
+      },
+      "minItems": 1,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "base_url": {
+      "type": "string"
+    },
+    "client_compatibilities": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "code": {
+      "type": "string"
+    },
+    "credential_source": {
+      "default": "keypool",
+      "enum": [
+        "keypool",
+        "dedicated_upstream",
+        "provider_entitlement"
+      ],
+      "type": "string"
+    },
+    "default_protocol_binding": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string"
+    },
+    "inbound_protocols": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "key_strategy": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "owned_by": {
+      "type": "string"
+    },
+    "owner_scope": {
+      "additionalProperties": false,
+      "properties": {
+        "entitlement_id": {
+          "type": "string"
+        },
+        "product_id": {
+          "type": "string"
+        },
+        "tenant_id": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "protocol_bindings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "accepts": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "capabilities": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "models": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "protocol": {
+                  "type": "string"
+                },
+                "request_contract": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "auth_scheme": {
+            "type": "string"
+          },
+          "bridge": {
+            "type": "string"
+          },
+          "capability_profiles": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "combination_constraints": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "conflicts": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                "requires": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                },
+                "when": {
+                  "additionalProperties": {
+                    "type": "string"
+                  },
+                  "type": "object"
+                }
+              },
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "compat_api_type": {
+            "type": "string"
+          },
+          "compatibility_mode": {
+            "additionalProperties": false,
+            "properties": {
+              "drop_unsupported_default_params": {
+                "type": "boolean"
+              },
+              "openai_client_defaults": {
+                "type": "boolean"
+              },
+              "reject_semantic_params": {
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "feature_constraints": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "field_disposition": {
+            "additionalProperties": false,
+            "properties": {
+              "request": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              },
+              "response": {
+                "additionalProperties": {
+                  "type": "string"
+                },
+                "type": "object"
+              }
+            },
+            "type": "object"
+          },
+          "name": {
+            "type": "string"
+          },
+          "outbound_protocol": {
+            "type": "string"
+          },
+          "param_constraints": {
+            "additionalProperties": {
+              "items": {
+                "type": "string"
+              },
+              "type": "array"
+            },
+            "type": "object"
+          },
+          "path_prefix": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "integer"
+          },
+          "query_template": {
+            "type": "string"
+          },
+          "request_correlation_mode": {
+            "type": "string"
+          },
+          "request_param_policy": {
+            "additionalProperties": {
+              "additionalProperties": false,
+              "properties": {
+                "allowed_values": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "fixed_value": {
+                  "type": "string"
+                },
+                "on_equal": {
+                  "type": "string"
+                },
+                "on_mismatch": {
+                  "type": "string"
+                },
+                "upstream_behavior": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "object"
+          },
+          "supported_features": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "supported_params": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "translator": {
+            "type": "string"
+          },
+          "unsupported_features": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "unsupported_params": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "name"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "provider_account_ref": {
+      "maxLength": 128,
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+      "type": "string"
+    },
+    "provider_profile": {
+      "enum": [
+        "anthropic_native",
+        "azure_openai",
+        "cohere_v2",
+        "doubao_ark",
+        "gemini_native",
+        "glm",
+        "glm_coding",
+        "openai_compatible",
+        "openai_native",
+        "openai_responses_native"
+      ],
+      "type": "string"
+    },
+    "revision": {
+      "type": "integer"
+    },
+    "schema_version": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "string"
+    },
+    "visibility": {
+      "default": "product_route",
+      "enum": [
+        "product_route",
+        "dedicated_only",
+        "internal"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "base_url",
+    "id",
+    "name",
+    "status"
+  ],
+  "title": "ProviderInfo",
+  "type": "object",
+  "version": 1
+}

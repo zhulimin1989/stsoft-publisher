@@ -1,0 +1,37 @@
+# --- build / test artifacts ---
+bin/
+*.exe
+*.test
+*.out
+*.prof
+*.pprof
+coverage.html
+coverage.txt
+
+# --- local Go workspace ---
+go.work
+go.work.sum
+
+# --- runtime config / secrets ---
+config/publisher.cfg
+.env*
+!.env.example
+
+# --- editor / IDE ---
+.idea/
+.vscode/
+.claude/
+*.swp
+*.swo
+*~
+
+# --- runtime artifacts ---
+*.pid
+
+# --- OS junk ---
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# --- logs ---
+*.log

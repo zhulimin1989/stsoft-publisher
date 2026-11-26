@@ -1,0 +1,39 @@
+{
+  "name": "@raytone-lab/publisher-contracts",
+  "version": "3.1.0",
+  "description": "Publisher contract schemas, generated TypeScript types, and AJV validators.",
+  "license": "UNLICENSED",
+  "type": "commonjs",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./schemas/*": "./dist/schemas/*",
+    "./types/*": "./dist/types/*",
+    "./golden/*": "./dist/golden/*"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "scripts": {
+    "check:version": "node scripts/check-version.mjs",
+    "build": "npm run check:version && node scripts/build.mjs",
+    "validate:golden": "node scripts/validate-golden.mjs",
+    "validate:enums": "node scripts/validate-enums.mjs",
+    "test": "npm run build && npm run validate:golden && npm run validate:enums",
+    "prepack": "npm run build"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1",
+    "ajv-formats": "^3.0.1"
+  },
+  "devDependencies": {
+    "json-schema-to-typescript": "^15.0.4"
+  }
+}

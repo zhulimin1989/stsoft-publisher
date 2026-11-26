@@ -1,0 +1,49 @@
+{
+  "schema_version": 2,
+  "revision": 1700000000000001,
+  "key_id": "client-key-dedicated-coding",
+  "key_hash": "sha256:fixture-client-key-dedicated-coding",
+  "alias": "coding-dedicated-client",
+  "scope_attrs": {
+    "tenant_id": "tenant_demo",
+    "workspace_id": "workspace_coding",
+    "usr.coding_plan_entitlement_id": "entitlement_demo_001"
+  },
+  "status": "active",
+  "expires_at": 1893456000,
+  "ip_whitelist": [],
+  "enforce_model_whitelist": true,
+  "allowed_models": [
+    "glm-4.5"
+  ],
+  "dedicated_upstream": {
+    "upstream_key_id": "coding-plan-key-001",
+    "provider_account_ref": "provider-account-glm-main",
+    "ciphertext": "kms:projects/demo/locations/global/keyRings/ring/cryptoKeys/key:ciphertext",
+    "ciphertext_version": 2147483648,
+    "ciphertext_sha256": "sha256:dedicated-ciphertext",
+    "kms_key_id": "kms-key-coding",
+    "status": "active",
+    "expires_at": 1893456000,
+    "updated_at": "2026-06-15T00:00:00Z",
+    "fallback_allowed": false,
+    "endpoints": [
+      {
+        "client_protocol": "anthropic",
+        "provider_id": "glm-anthropic",
+        "protocol_strategy": "passthrough"
+      },
+      {
+        "client_protocol": "openai",
+        "provider_id": "glm-openai",
+        "protocol_strategy": "passthrough"
+      },
+      {
+        "client_protocol": "responses",
+        "provider_id": "glm-openai",
+        "protocol_strategy": "responses_to_chat"
+      }
+    ]
+  },
+  "max_tokens_per_call": 16384
+}

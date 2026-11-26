@@ -1,0 +1,371 @@
+{
+  "version": 2,
+  "source": "tokenplatform-gateway/internal/bindingspec+capabilityspec+capabilityprofile",
+  "provider_profiles": [
+    "anthropic_native",
+    "azure_openai",
+    "cohere_v2",
+    "doubao_ark",
+    "gemini_native",
+    "glm",
+    "glm_coding",
+    "openai_compatible",
+    "openai_native",
+    "openai_responses_native"
+  ],
+  "client_compatibilities": [
+    "all",
+    "cherrystudio",
+    "claude_code",
+    "cline",
+    "codex",
+    "cursor",
+    "dify",
+    "gemini_cli",
+    "openai_sdk",
+    "openclaw"
+  ],
+  "token_count_strategies": [
+    "gateway_estimate",
+    "native",
+    "unsupported"
+  ],
+  "inbound_protocols": [
+    "anthropic",
+    "ark",
+    "gemini",
+    "glm",
+    "glm_coding",
+    "openai",
+    "responses"
+  ],
+  "capabilities": [
+    "chat",
+    "count_tokens",
+    "embeddings",
+    "image_generation",
+    "rerank",
+    "video_generation"
+  ],
+  "request_contracts": [
+    "anthropic_count_tokens",
+    "anthropic_messages",
+    "ark_video_task_create",
+    "chat_completions",
+    "embeddings",
+    "gemini_generate",
+    "image_generations",
+    "rerank",
+    "responses"
+  ],
+  "outbound_protocols": [
+    "anthropic",
+    "ark",
+    "azure_openai",
+    "cohere_v2",
+    "doubao_ark",
+    "gemini",
+    "glm",
+    "glm_coding",
+    "openai",
+    "openai_responses"
+  ],
+  "auth_schemes": [
+    "azure-key",
+    "bearer",
+    "google-key",
+    "jwt-or-bearer",
+    "x-api-key"
+  ],
+  "translators": [
+    "passthrough",
+    "responses_to_chat_synthesis",
+    "standard_to_anthropic",
+    "standard_to_gemini",
+    "standard_to_openai",
+    "standard_to_openai_responses"
+  ],
+  "bridges": [
+    "anthropic_to_openai_chat",
+    "responses_to_chat"
+  ],
+  "dedicated_protocol_channels": [
+    "passthrough",
+    "responses_to_chat",
+    "anthropic_to_chat"
+  ],
+  "lossy_tiers": [
+    "low",
+    "high"
+  ],
+  "bridge_contracts": [
+    {
+      "bridge": "anthropic_to_openai_chat",
+      "lossy_tier": "high"
+    },
+    {
+      "bridge": "responses_to_chat",
+      "lossy_tier": "low",
+      "admitted_subset": {
+        "request": {
+          "allowed_item_types": [
+            "function_call",
+            "function_call_output",
+            "input_text",
+            "message"
+          ]
+        },
+        "response": {
+          "allowed_output_types": [
+            "function_call",
+            "message"
+          ]
+        },
+        "streaming": {
+          "allowed_events": [
+            "completed",
+            "final_usage",
+            "function_call_arguments.delta",
+            "function_call_arguments.done",
+            "response.output_item.added",
+            "response.output_text.delta"
+          ]
+        }
+      }
+    }
+  ],
+  "compat_api_types": [
+    "anthropic",
+    "ark",
+    "azure",
+    "cohere_v2",
+    "doubao",
+    "gemini",
+    "glm",
+    "glm_coding",
+    "openai",
+    "openai_responses",
+    "zhipu"
+  ],
+  "capability_profiles": [
+    "anthropic.messages.base",
+    "anthropic.messages.tools",
+    "gemini.generate_content.base",
+    "gemini.generate_content.tools",
+    "minimax.openai_chat.m2_m25_no_tools",
+    "minimax.openai_chat.m3_m27",
+    "minimax.openai_chat.response_extensions",
+    "minimax.openai_chat.thinking",
+    "openai.chat_completions.base",
+    "openai.chat_completions.full",
+    "openai.chat_completions.streaming_usage",
+    "openai.chat_completions.structured_output",
+    "openai.chat_completions.tools",
+    "openai.responses.base"
+  ],
+  "capability_features": [
+    "code_interpreter",
+    "function_tools",
+    "json_mode",
+    "json_schema",
+    "mcp_tools",
+    "reasoning",
+    "reasoning_split",
+    "responses_stateful",
+    "server_side_tools",
+    "streaming_tools",
+    "streaming_usage",
+    "vision",
+    "web_search"
+  ],
+  "capability_params": [
+    "frequency_penalty",
+    "logprobs",
+    "max_tokens",
+    "n",
+    "parallel_tool_calls",
+    "presence_penalty",
+    "reasoning_effort",
+    "reasoning_split",
+    "response_format",
+    "seed",
+    "stop",
+    "stream",
+    "stream_options",
+    "temperature",
+    "thinking",
+    "tool_choice",
+    "tools",
+    "top_logprobs",
+    "top_p"
+  ],
+  "param_policy_categories": [
+    "sampling",
+    "generation_count",
+    "semantic",
+    "content",
+    "observability"
+  ],
+  "param_policy_upstream_behaviors": [
+    "fixed",
+    "enum"
+  ],
+  "param_policy_actions": [
+    "preserve",
+    "omit",
+    "omit_with_warning",
+    "normalize",
+    "normalize_with_warning",
+    "reject"
+  ],
+  "field_disposition_actions": [
+    "preserve",
+    "adapt",
+    "drop",
+    "reject",
+    "preserve_vendor_extra",
+    "passthrough_raw"
+  ],
+  "request_correlation_modes": [
+    "none",
+    "gateway_header",
+    "user_agent",
+    "gateway_header_and_user_agent"
+  ],
+  "runtime_endpoints": [
+    {
+      "outbound_protocol": "anthropic",
+      "capability": "chat",
+      "request_contract": "anthropic_messages",
+      "path_template": "/messages"
+    },
+    {
+      "outbound_protocol": "anthropic",
+      "capability": "count_tokens",
+      "request_contract": "anthropic_count_tokens",
+      "path_template": "/messages/count_tokens"
+    },
+    {
+      "outbound_protocol": "ark",
+      "capability": "video_generation",
+      "request_contract": "ark_video_task_create",
+      "path_template": "/contents/generations/tasks"
+    },
+    {
+      "outbound_protocol": "azure_openai",
+      "capability": "chat",
+      "request_contract": "chat_completions",
+      "path_template": "/chat/completions",
+      "query_template": "api-version={api_version}"
+    },
+    {
+      "outbound_protocol": "azure_openai",
+      "capability": "embeddings",
+      "request_contract": "embeddings",
+      "path_template": "/embeddings",
+      "query_template": "api-version={api_version}"
+    },
+    {
+      "outbound_protocol": "cohere_v2",
+      "capability": "rerank",
+      "request_contract": "rerank",
+      "path_template": "/rerank"
+    },
+    {
+      "outbound_protocol": "doubao_ark",
+      "capability": "chat",
+      "request_contract": "chat_completions",
+      "path_template": "/chat/completions"
+    },
+    {
+      "outbound_protocol": "doubao_ark",
+      "capability": "embeddings",
+      "request_contract": "embeddings",
+      "path_template": "/embeddings"
+    },
+    {
+      "outbound_protocol": "gemini",
+      "capability": "chat",
+      "request_contract": "gemini_generate",
+      "path_template": "/models/{upstream_model}:{action}"
+    },
+    {
+      "outbound_protocol": "gemini",
+      "capability": "embeddings",
+      "request_contract": "embeddings",
+      "path_template": "/models/{upstream_model}:embedContent"
+    },
+    {
+      "outbound_protocol": "glm",
+      "capability": "chat",
+      "request_contract": "chat_completions",
+      "path_template": "/chat/completions"
+    },
+    {
+      "outbound_protocol": "glm",
+      "capability": "embeddings",
+      "request_contract": "embeddings",
+      "path_template": "/embeddings"
+    },
+    {
+      "outbound_protocol": "glm_coding",
+      "capability": "chat",
+      "request_contract": "chat_completions",
+      "path_template": "/chat/completions"
+    },
+    {
+      "outbound_protocol": "openai",
+      "capability": "chat",
+      "request_contract": "anthropic_messages",
+      "path_template": "/chat/completions"
+    },
+    {
+      "outbound_protocol": "openai",
+      "capability": "chat",
+      "request_contract": "chat_completions",
+      "path_template": "/chat/completions"
+    },
+    {
+      "outbound_protocol": "openai",
+      "capability": "chat",
+      "request_contract": "responses",
+      "path_template": "/chat/completions"
+    },
+    {
+      "outbound_protocol": "openai",
+      "capability": "embeddings",
+      "request_contract": "embeddings",
+      "path_template": "/embeddings"
+    },
+    {
+      "outbound_protocol": "openai",
+      "capability": "image_generation",
+      "request_contract": "image_generations",
+      "path_template": "/images/generations"
+    },
+    {
+      "outbound_protocol": "openai_responses",
+      "capability": "chat",
+      "request_contract": "responses",
+      "path_template": "/responses"
+    }
+  ],
+  "translation_matrix": [
+    {
+      "from": "anthropic",
+      "to": "openai",
+      "capability": "chat",
+      "request_contract": "anthropic_messages",
+      "translator": "standard_to_openai",
+      "bridge": "anthropic_to_openai_chat"
+    },
+    {
+      "from": "responses",
+      "to": "openai",
+      "capability": "chat",
+      "request_contract": "responses",
+      "translator": "responses_to_chat_synthesis",
+      "bridge": "responses_to_chat"
+    }
+  ]
+}

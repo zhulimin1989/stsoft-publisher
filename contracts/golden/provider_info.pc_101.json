@@ -1,0 +1,54 @@
+{
+  "schema_version": 1,
+  "revision": 1700000000000000,
+  "id": "pc_101",
+  "code": "kimi-main",
+  "name": "Kimi coding channel",
+  "base_url": "https://api.moonshot.example",
+  "status": "active",
+  "key_strategy": "priority",
+  "provider_profile": "openai_compatible",
+  "owned_by": "kimi-main",
+  "visibility": "product_route",
+  "credential_source": "keypool",
+  "allowed_route_kinds": [
+    "model_route",
+    "product_route"
+  ],
+  "protocol_bindings": [
+    {
+      "name": "openai-chat",
+      "priority": 100,
+      "accepts": [
+        {
+          "protocol": "openai",
+          "capabilities": [
+            "chat"
+          ],
+          "request_contract": "chat_completions",
+          "models": [
+            "kimi-k2.6"
+          ]
+        }
+      ],
+      "outbound_protocol": "openai",
+      "path_prefix": "/v1",
+      "auth_scheme": "bearer",
+      "translator": "passthrough",
+      "compat_api_type": "openai",
+      "capability_profiles": [
+        "openai_compatible_chat"
+      ],
+      "supported_params": [
+        "temperature",
+        "top_p",
+        "max_tokens",
+        "stream"
+      ],
+      "unsupported_params": [
+        "reasoning_effort"
+      ]
+    }
+  ],
+  "default_protocol_binding": "openai-chat"
+}

@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "default_target": {
+    "target_type": "GROUP",
+    "target_id": "primary"
+  },
+  "groups": [
+    {
+      "id": "primary",
+      "code": "primary",
+      "status": "active",
+      "strategy": "weighted_failover",
+      "members": [
+        {
+          "product_channel_id": "pc_101",
+          "channel_id": "kimi-main",
+          "provider_id": "pc_101",
+          "priority": 1,
+          "weight": 100,
+          "role": "primary",
+          "max_rpm": 9999,
+          "max_tpm": 888888
+        },
+        {
+          "product_channel_id": "pc_102",
+          "channel_id": "kimi-testing",
+          "provider_id": "pc_102",
+          "priority": 2,
+          "weight": 50,
+          "role": "fallback"
+        }
+      ]
+    }
+  ],
+  "product_channels": [
+    {
+      "id": "pc_101",
+      "channel_id": "kimi-main",
+      "provider_id": "pc_101",
+      "allowed_models": [
+        "kimi-k2.6"
+      ],
+      "denied_models": [],
+      "priority": 1,
+      "weight": 100,
+      "max_rpm": 500,
+      "max_tpm": 100000,
+      "status": "active"
+    },
+    {
+      "id": "pc_102",
+      "channel_id": "kimi-testing",
+      "provider_id": "pc_102",
+      "allowed_models": [
+        "kimi-k2.6"
+      ],
+      "denied_models": [],
+      "priority": 2,
+      "weight": 50,
+      "max_rpm": 200,
+      "max_tpm": 50000,
+      "status": "testing"
+    }
+  ],
+  "assignments": [
+    {
+      "id": "asg_vip",
+      "product_id": "prod_coding",
+      "subject_type": "USER_SEGMENT",
+      "subject_id": "seg_vip",
+      "model_pattern": "kimi-*",
+      "client_compatibility": "claude_code",
+      "target_type": "GROUP",
+      "target_id": "primary",
+      "mode": "PREFER",
+      "priority": 10
+    },
+    {
+      "id": "asg_user",
+      "product_id": "prod_coding",
+      "subject_type": "USER",
+      "subject_id": "usr_123",
+      "target_type": "PRODUCT_CHANNEL",
+      "target_id": "pc_101",
+      "mode": "ONLY",
+      "priority": 20
+    }
+  ]
+}

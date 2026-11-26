@@ -1,0 +1,174 @@
+{
+  "$id": "https://schemas.tokenplatform.dev/publisher/runtime/route_config.v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "alias_target": {
+      "type": "string"
+    },
+    "default_policy": {
+      "additionalProperties": false,
+      "properties": {
+        "allow_fallback": {
+          "type": "boolean"
+        },
+        "compliance": {
+          "additionalProperties": false,
+          "properties": {
+            "no_training": {
+              "type": "boolean"
+            },
+            "region": {
+              "type": "string"
+            },
+            "zero_data_retention": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        },
+        "compliance_tags": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "preferred_providers": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "required_capabilities": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        },
+        "required_params": {
+          "items": {
+            "type": "string"
+          },
+          "type": "array"
+        }
+      },
+      "type": "object"
+    },
+    "fallback_model": {
+      "type": "string"
+    },
+    "model_id": {
+      "type": "string"
+    },
+    "provider_strategy": {
+      "type": "string"
+    },
+    "providers": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "anthropic_beta": {
+            "type": "string"
+          },
+          "api_version": {
+            "type": "string"
+          },
+          "capabilities": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "compliance": {
+            "additionalProperties": false,
+            "properties": {
+              "no_training": {
+                "type": "boolean"
+              },
+              "region": {
+                "type": "string"
+              },
+              "zero_data_retention": {
+                "type": "boolean"
+              }
+            },
+            "type": "object"
+          },
+          "compliance_tags": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "priority": {
+            "type": "integer"
+          },
+          "provider_id": {
+            "type": "string"
+          },
+          "request_param_policy": {
+            "additionalProperties": {
+              "additionalProperties": false,
+              "properties": {
+                "allowed_values": {
+                  "items": {
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                "category": {
+                  "type": "string"
+                },
+                "fixed_value": {
+                  "type": "string"
+                },
+                "on_equal": {
+                  "type": "string"
+                },
+                "on_mismatch": {
+                  "type": "string"
+                },
+                "upstream_behavior": {
+                  "type": "string"
+                }
+              },
+              "type": "object"
+            },
+            "type": "object"
+          },
+          "status": {
+            "type": "string"
+          },
+          "upstream_model": {
+            "type": "string"
+          },
+          "weight": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "priority",
+          "provider_id",
+          "status",
+          "upstream_model",
+          "weight"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "revision": {
+      "type": "integer"
+    },
+    "schema_version": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "model_id",
+    "providers"
+  ],
+  "title": "RouteConfig",
+  "type": "object",
+  "version": 1
+}

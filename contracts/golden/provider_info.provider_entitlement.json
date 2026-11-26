@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "revision": 1700000000000000,
+  "id": "pc_entitlement_001",
+  "code": "entitlement-provider",
+  "name": "Provider entitlement credential lane",
+  "base_url": "https://api.entitlement.example",
+  "status": "active",
+  "provider_profile": "openai_compatible",
+  "provider_account_ref": "overseas-prod-1",
+  "visibility": "dedicated_only",
+  "credential_source": "provider_entitlement",
+  "allowed_route_kinds": [
+    "dedicated_route"
+  ],
+  "owner_scope": {
+    "entitlement_id": "entitlement_demo_001"
+  },
+  "protocol_bindings": [
+    {
+      "name": "openai-chat",
+      "accepts": [
+        {
+          "protocol": "openai",
+          "capabilities": [
+            "chat"
+          ],
+          "request_contract": "chat_completions"
+        }
+      ],
+      "outbound_protocol": "openai",
+      "auth_scheme": "bearer"
+    }
+  ],
+  "default_protocol_binding": "openai-chat"
+}

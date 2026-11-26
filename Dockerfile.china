@@ -1,0 +1,27 @@
+# tokenplatform-publisher 中国区构建 Dockerfile
+#
+# 目标:
+#   - Builder image 默认走 public.ecr.aws, 避免 docker.io 拉取慢
+#   - Go modules 走 goproxy.cn
+#   - Runtime image 保持可配置,默认使用 public.ecr.aws alpine
+
+ARG PUBLISHER_BUILDER_IMAGE=public.ecr.aws/docker/library/golang:1.25
+ARG RUNTIME_IMAGE=public.ecr.aws/docker/library/alpine:3.20
+
+FROM ${PUBLISHER_BUILDER_IMAGE} AS build
+ARG GOPROXY=https://goproxy.cn,direct
+ENV GOPROXY=${GOPROXY}
+WORKDIR /src
+COPY go.mod go.sum ./
+RUN go mod download
+COPY . .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o /out/publisher ./cmd/publisher
+
+FROM ${RUNTIME_IMAGE}
+WORKDIR /app
+COPY --from=build /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
+COPY --from=build /out/publisher /app/publisher
+COPY config/publisher.example.cfg /app/config/publisher.cfg
+EXPOSE 80
+ENTRYPOINT ["/app/publisher"]
+CMD ["--config", "/app/config/publisher.cfg"]

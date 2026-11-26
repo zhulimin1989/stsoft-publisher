@@ -1,0 +1,90 @@
+{
+  "$id": "https://tokenplatform.local/contracts/intent/client_exposure.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "capabilities": {
+      "items": {
+        "enum": [
+          "chat",
+          "count_tokens",
+          "embeddings",
+          "image_generation",
+          "rerank",
+          "video_generation"
+        ],
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "paths": {
+      "description": "ADR-0016: explicit path declarations, each = (inbound_protocol, channel). When present this is the compile input for the wire-protocol axis and served_inbound_protocols is ignored. Capabilities remain an orthogonal axis.",
+      "items": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "channel": {
+            "enum": [
+              "passthrough",
+              "responses_to_chat",
+              "anthropic_to_chat"
+            ],
+            "type": "string"
+          },
+          "inbound_protocol": {
+            "enum": [
+              "anthropic",
+              "gemini",
+              "openai",
+              "responses"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "inbound_protocol",
+          "channel"
+        ],
+        "title": "ProtocolPath",
+        "type": "object",
+        "version": 1
+      },
+      "type": "array"
+    },
+    "protocol_path_prefix": {
+      "type": "string"
+    },
+    "provider_id": {
+      "type": "string"
+    },
+    "served_inbound_protocols": {
+      "deprecated": true,
+      "description": "Deprecated input (ADR-0016): superseded by paths[]. Still legal during the transition; ignored when paths is present.",
+      "items": {
+        "enum": [
+          "anthropic",
+          "gemini",
+          "openai",
+          "responses"
+        ],
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "token_count_strategy": {
+      "enum": [
+        "gateway_estimate",
+        "native",
+        "unsupported"
+      ],
+      "type": "string"
+    }
+  },
+  "required": [
+    "provider_id",
+    "served_inbound_protocols"
+  ],
+  "title": "ClientExposure",
+  "type": "object",
+  "version": 1
+}

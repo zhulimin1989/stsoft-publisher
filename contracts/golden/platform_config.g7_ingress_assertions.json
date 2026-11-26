@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "revision": 1751400000000000,
+  "platform_rpm": 60000,
+  "platform_cc": 512,
+  "default_provider_strategy": "weighted",
+  "default_timeout_ms": 30000,
+  "stream_timeout_ms": 300000,
+  "first_token_timeout_ms": 15000,
+  "attempt_timeout_ms": 60000,
+  "max_body_size": 10485760,
+  "max_fallback_depth": 3,
+  "ingress_product_assertions": [
+    {
+      "pattern": "POST /api/coding/paas/v4/chat/completions",
+      "allowed_products": ["pc_glm_coding"],
+      "mode": "warn"
+    },
+    {
+      "pattern": "POST /v1/messages",
+      "allowed_products": ["pc_payg", "pc_glm_coding", "pc_kimi_coding"],
+      "mode": "enforce"
+    },
+    {
+      "pattern": "GET /v1/models",
+      "allowed_products": ["pc_payg"]
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "schema_version": 2,
+  "revision": 1700000000000000,
+  "key_id": "client-key-coding",
+  "key_hash": "sha256:fixture-client-key-coding",
+  "alias": "coding-demo-client",
+  "scope_attrs": {
+    "tenant_id": "tenant_demo",
+    "workspace_id": "workspace_coding"
+  },
+  "status": "active",
+  "expires_at": 1893456000,
+  "ip_whitelist": [],
+  "enforce_model_whitelist": true,
+  "allowed_models": [
+    "kimi-k2.6"
+  ],
+  "policies": [
+    {
+      "version": 1,
+      "policy_id": "policy_prod_coding_pc_101_rpm",
+      "policy_type": "rate_limit",
+      "metric": "rpm",
+      "scope": "provider_channel",
+      "scope_id": "pc_101",
+      "period_kind": "minute",
+      "limit_value": 500,
+      "enforcement_mode": "enforce",
+      "meta": {
+        "shared_credential_group": "shared_credential:fixture"
+      }
+    },
+    {
+      "version": 1,
+      "policy_id": "policy_prod_coding_pc_102_rpm",
+      "policy_type": "rate_limit",
+      "metric": "rpm",
+      "scope": "provider_channel",
+      "scope_id": "pc_102",
+      "period_kind": "minute",
+      "limit_value": 200,
+      "enforcement_mode": "shadow",
+      "meta": {
+        "shared_credential_group": "shared_credential:fixture",
+        "channel_status": "testing"
+      }
+    }
+  ],
+  "resource_bindings": [
+    {
+      "binding_id": "rb_prod_coding_pc_101_rpm",
+      "scope_type": "provider_channel",
+      "scope_id": "pc_101",
+      "metric": "rpm",
+      "unit_kind": "request",
+      "period_kind": "minute",
+      "source_policy_id": "policy_prod_coding_pc_101_rpm"
+    }
+  ],
+  "allowance_bindings": [
+    {
+      "scope": "product",
+      "scope_id": "prod_coding",
+      "period": "202606"
+    }
+  ],
+  "max_tokens_per_call": 16384
+}

@@ -1,0 +1,248 @@
+{
+  "$id": "https://schemas.tokenplatform.dev/publisher/runtime/product_route_graph.v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "assignments": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "client_compatibility": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "mode": {
+            "enum": [
+              "ONLY",
+              "PREFER"
+            ],
+            "type": "string"
+          },
+          "model_pattern": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "integer"
+          },
+          "product_id": {
+            "type": "string"
+          },
+          "subject_id": {
+            "type": "string"
+          },
+          "subject_type": {
+            "enum": [
+              "USER",
+              "USER_SEGMENT"
+            ],
+            "type": "string"
+          },
+          "target_id": {
+            "type": "string"
+          },
+          "target_type": {
+            "enum": [
+              "GROUP",
+              "PRODUCT_CHANNEL"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "mode",
+          "priority",
+          "product_id",
+          "subject_id",
+          "subject_type",
+          "target_id",
+          "target_type"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "default_target": {
+      "additionalProperties": false,
+      "properties": {
+        "target_id": {
+          "type": "string"
+        },
+        "target_type": {
+          "enum": [
+            "GROUP",
+            "PRODUCT_CHANNEL"
+          ],
+          "type": "string"
+        }
+      },
+      "required": [
+        "target_id",
+        "target_type"
+      ],
+      "type": "object"
+    },
+    "groups": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "code": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "members": {
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "channel_id": {
+                  "type": "string"
+                },
+                "max_rpm": {
+                  "type": "integer"
+                },
+                "max_tpm": {
+                  "type": "integer"
+                },
+                "priority": {
+                  "type": "integer"
+                },
+                "product_channel_id": {
+                  "type": "string"
+                },
+                "provider_id": {
+                  "type": "string"
+                },
+                "role": {
+                  "enum": [
+                    "primary",
+                    "fallback",
+                    "shadow"
+                  ],
+                  "type": "string"
+                },
+                "weight": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "channel_id",
+                "priority",
+                "product_channel_id",
+                "provider_id",
+                "role",
+                "weight"
+              ],
+              "type": "object"
+            },
+            "type": "array"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "disabled"
+            ],
+            "type": "string"
+          },
+          "strategy": {
+            "enum": [
+              "weighted_failover",
+              "priority_failover",
+              "round_robin",
+              "cost_first",
+              "latency_first"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "code",
+          "id",
+          "members",
+          "status",
+          "strategy"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "product_channels": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "allowed_models": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "channel_id": {
+            "type": "string"
+          },
+          "denied_models": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "id": {
+            "type": "string"
+          },
+          "max_rpm": {
+            "type": "integer"
+          },
+          "max_tpm": {
+            "type": "integer"
+          },
+          "priority": {
+            "type": "integer"
+          },
+          "provider_id": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "active",
+              "disabled",
+              "testing"
+            ],
+            "type": "string"
+          },
+          "weight": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "allowed_models",
+          "channel_id",
+          "denied_models",
+          "id",
+          "priority",
+          "provider_id",
+          "status",
+          "weight"
+        ],
+        "type": "object"
+      },
+      "minItems": 1,
+      "type": "array"
+    },
+    "schema_version": {
+      "const": 1,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "assignments",
+    "default_target",
+    "groups",
+    "product_channels",
+    "schema_version"
+  ],
+  "title": "ProductRouteGraph",
+  "type": "object",
+  "version": 1
+}

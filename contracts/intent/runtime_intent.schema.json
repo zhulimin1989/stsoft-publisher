@@ -1,0 +1,53 @@
+{
+  "$id": "https://tokenplatform.local/contracts/intent/runtime_intent.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "client_exposures": {
+      "items": {
+        "$ref": "client_exposure.schema.json"
+      },
+      "type": "array"
+    },
+    "model_routes": {
+      "items": {
+        "$ref": "model_route_intent.schema.json"
+      },
+      "type": "array"
+    },
+    "product_policies": {
+      "items": {
+        "$ref": "product_route_policy.schema.json"
+      },
+      "type": "array"
+    },
+    "product_policy_deletes": {
+      "items": {
+        "$ref": "product_policy_delete.schema.json"
+      },
+      "type": "array"
+    },
+    "provider_credentials": {
+      "items": {
+        "$ref": "provider_credential.schema.json"
+      },
+      "type": "array"
+    },
+    "provider_endpoints": {
+      "items": {
+        "$ref": "provider_endpoint.schema.json"
+      },
+      "type": "array"
+    },
+    "schema_version": {
+      "const": 2,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schema_version"
+  ],
+  "title": "RuntimeIntent",
+  "type": "object",
+  "version": 2
+}

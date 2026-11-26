@@ -1,0 +1,95 @@
+{
+  "$id": "https://schemas.tokenplatform.dev/publisher/runtime/key_pool.v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "entries": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "alias": {
+            "type": "string"
+          },
+          "allowed_models": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "ciphertext": {
+            "type": "string"
+          },
+          "key_id": {
+            "type": "string"
+          },
+          "priority": {
+            "type": "integer"
+          },
+          "provider_account_ref": {
+            "maxLength": 128,
+            "minLength": 1,
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+            "type": "string"
+          },
+          "revision": {
+            "type": "integer"
+          },
+          "rpm_limit": {
+            "type": "integer"
+          },
+          "schema_version": {
+            "type": "integer"
+          },
+          "status": {
+            "type": "string"
+          },
+          "tpm_limit": {
+            "type": "integer"
+          },
+          "weight": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "ciphertext",
+          "key_id",
+          "priority",
+          "rpm_limit",
+          "status",
+          "tpm_limit",
+          "weight"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "meta": {
+      "additionalProperties": false,
+      "properties": {
+        "provider_id": {
+          "type": "string"
+        },
+        "revision": {
+          "type": "integer"
+        },
+        "schema_version": {
+          "type": "integer"
+        },
+        "strategy": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "provider_id"
+      ],
+      "type": "object"
+    }
+  },
+  "required": [
+    "entries",
+    "meta"
+  ],
+  "title": "KeyPool",
+  "type": "object",
+  "version": 1
+}

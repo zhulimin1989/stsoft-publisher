@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "revision": 1700000000000000,
+  "id": "pc_103",
+  "code": "shared-dedicated-no-tenant",
+  "name": "Shared dedicated provider without per-customer owner_scope",
+  "base_url": "https://api.shared.example",
+  "status": "active",
+  "provider_profile": "openai_compatible",
+  "visibility": "dedicated_only",
+  "credential_source": "dedicated_upstream",
+  "allowed_route_kinds": [
+    "dedicated_route"
+  ],
+  "owner_scope": {
+    "product_id": "prod_coding"
+  },
+  "protocol_bindings": [
+    {
+      "name": "openai-chat",
+      "accepts": [
+        {
+          "protocol": "openai",
+          "capabilities": [
+            "chat"
+          ],
+          "request_contract": "chat_completions"
+        }
+      ],
+      "outbound_protocol": "openai",
+      "auth_scheme": "bearer"
+    }
+  ],
+  "default_protocol_binding": "openai-chat"
+}

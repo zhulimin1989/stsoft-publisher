@@ -1,0 +1,95 @@
+{
+  "$id": "https://tokenplatform.local/contracts/intent/model_route_intent.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "capabilities": {
+      "items": {
+        "enum": [
+          "chat",
+          "count_tokens",
+          "embeddings",
+          "image_generation",
+          "rerank",
+          "video_generation"
+        ],
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "context_window": {
+      "type": "integer"
+    },
+    "display_name": {
+      "type": "string"
+    },
+    "fallback_model": {
+      "type": "string"
+    },
+    "logical_model": {
+      "type": "string"
+    },
+    "max_output": {
+      "type": "integer"
+    },
+    "owned_by": {
+      "type": "string"
+    },
+    "provider_strategy": {
+      "type": "string"
+    },
+    "routes": {
+      "items": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "additionalProperties": false,
+        "properties": {
+          "capabilities": {
+            "items": {
+              "enum": [
+                "chat",
+                "count_tokens",
+                "embeddings",
+                "image_generation",
+                "rerank",
+                "video_generation"
+              ],
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "priority": {
+            "type": "integer"
+          },
+          "provider_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "upstream_model": {
+            "type": "string"
+          },
+          "weight": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "provider_id",
+          "upstream_model",
+          "status"
+        ],
+        "title": "ModelRouteTarget",
+        "type": "object",
+        "version": 1
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "logical_model",
+    "routes"
+  ],
+  "title": "ModelRouteIntent",
+  "type": "object",
+  "version": 1
+}

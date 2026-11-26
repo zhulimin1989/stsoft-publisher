@@ -1,0 +1,359 @@
+{
+  "$id": "https://schemas.tokenplatform.dev/publisher/runtime/key_meta.v2.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "alias": {
+      "type": "string"
+    },
+    "allowance_bindings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "period": {
+            "type": "string"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "scope_id": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "period",
+          "scope",
+          "scope_id"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "allowed_models": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "dedicated_upstream": {
+      "additionalProperties": false,
+      "properties": {
+        "ciphertext": {
+          "type": "string"
+        },
+        "ciphertext_sha256": {
+          "type": "string"
+        },
+        "ciphertext_version": {
+          "format": "int64",
+          "type": "integer"
+        },
+        "endpoints": {
+          "items": {
+            "additionalProperties": false,
+            "properties": {
+              "client_protocol": {
+                "enum": [
+                  "anthropic",
+                  "openai",
+                  "responses"
+                ],
+                "type": "string"
+              },
+              "protocol_strategy": {
+                "enum": [
+                  "passthrough",
+                  "responses_to_chat",
+                  "anthropic_to_chat"
+                ],
+                "type": "string"
+              },
+              "provider_id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "client_protocol",
+              "provider_id"
+            ],
+            "type": "object"
+          },
+          "type": "array"
+        },
+        "expires_at": {
+          "type": "integer"
+        },
+        "fallback_allowed": {
+          "type": "boolean"
+        },
+        "kms_key_id": {
+          "type": "string"
+        },
+        "provider_account_ref": {
+          "maxLength": 128,
+          "minLength": 1,
+          "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{0,127}$",
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        },
+        "updated_at": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "upstream_key_id": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "ciphertext",
+        "ciphertext_sha256",
+        "ciphertext_version",
+        "endpoints",
+        "expires_at",
+        "fallback_allowed",
+        "kms_key_id",
+        "status",
+        "updated_at",
+        "upstream_key_id"
+      ],
+      "type": "object"
+    },
+    "enforce_model_whitelist": {
+      "type": "boolean"
+    },
+    "expires_at": {
+      "type": "integer"
+    },
+    "guardrails": {
+      "additionalProperties": false,
+      "properties": {
+        "allow_tools": {
+          "type": "boolean"
+        },
+        "allow_vision": {
+          "type": "boolean"
+        },
+        "max_messages": {
+          "type": "integer"
+        },
+        "max_output_tokens": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "ip_whitelist": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "key_hash": {
+      "type": "string"
+    },
+    "key_id": {
+      "type": "string"
+    },
+    "max_tokens_per_call": {
+      "type": "integer"
+    },
+    "policies": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "conditions": {
+            "additionalProperties": false,
+            "properties": {
+              "call_types": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "effective_from": {
+                "type": "string"
+              },
+              "effective_to": {
+                "type": "string"
+              },
+              "models": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "protocols": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "providers": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          },
+          "control_semantic": {
+            "type": "string"
+          },
+          "enforcement_mode": {
+            "type": "string"
+          },
+          "limit_value": {
+            "type": "integer"
+          },
+          "meta": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "metric": {
+            "type": "string"
+          },
+          "period_id": {
+            "type": "string"
+          },
+          "period_kind": {
+            "type": "string"
+          },
+          "policy_id": {
+            "type": "string"
+          },
+          "policy_type": {
+            "type": "string"
+          },
+          "runtime_keys": {
+            "additionalProperties": false,
+            "properties": {
+              "count_suffix": {
+                "type": "string"
+              },
+              "family": {
+                "type": "string"
+              },
+              "lease_suffix": {
+                "type": "string"
+              },
+              "meta_suffix": {
+                "type": "string"
+              },
+              "pending_suffix": {
+                "type": "string"
+              },
+              "settled_suffix": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "scope_id": {
+            "type": "string"
+          },
+          "subject_side": {
+            "type": "string"
+          },
+          "unlimited": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "window": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "limit_value",
+          "metric",
+          "policy_id",
+          "policy_type",
+          "scope",
+          "scope_id",
+          "version"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "resource_bindings": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "binding_id": {
+            "type": "string"
+          },
+          "lineage_role": {
+            "type": "string"
+          },
+          "metric": {
+            "type": "string"
+          },
+          "period_kind": {
+            "type": "string"
+          },
+          "reservation_mode": {
+            "type": "string"
+          },
+          "scope_id": {
+            "type": "string"
+          },
+          "scope_type": {
+            "type": "string"
+          },
+          "source_policy_id": {
+            "type": "string"
+          },
+          "state_semantic": {
+            "type": "string"
+          },
+          "unit_kind": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "metric",
+          "scope_id",
+          "scope_type"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "revision": {
+      "type": "integer"
+    },
+    "schema_version": {
+      "type": "integer"
+    },
+    "scope_attrs": {
+      "additionalProperties": {
+        "type": "string"
+      },
+      "type": "object"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "allowed_models",
+    "expires_at",
+    "ip_whitelist",
+    "key_hash",
+    "key_id",
+    "status"
+  ],
+  "title": "KeyMeta",
+  "type": "object",
+  "version": 2
+}

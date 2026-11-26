@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "source": "ARCH-PASSTHROUGH-REDESIGN.md v2 section 5 Batch 0",
+  "architecture_review": "ARCH-REVIEW-APPROVED capability-axis-freeze 2026-06-15 sha256:45eb47b00ce1bddc38d40e2e5c5ba13b716dd7e22c0509e20bbe6f21c7267938",
+  "frozen_fields": [
+    "capability_profiles",
+    "capability_features",
+    "capability_params"
+  ],
+  "capability_profiles": [
+    "anthropic.messages.base",
+    "anthropic.messages.tools",
+    "gemini.generate_content.base",
+    "gemini.generate_content.tools",
+    "minimax.openai_chat.m2_m25_no_tools",
+    "minimax.openai_chat.m3_m27",
+    "minimax.openai_chat.response_extensions",
+    "minimax.openai_chat.thinking",
+    "openai.chat_completions.base",
+    "openai.chat_completions.full",
+    "openai.chat_completions.streaming_usage",
+    "openai.chat_completions.structured_output",
+    "openai.chat_completions.tools",
+    "openai.responses.base"
+  ],
+  "capability_features": [
+    "code_interpreter",
+    "function_tools",
+    "json_mode",
+    "json_schema",
+    "mcp_tools",
+    "reasoning",
+    "reasoning_split",
+    "responses_stateful",
+    "server_side_tools",
+    "streaming_tools",
+    "streaming_usage",
+    "vision",
+    "web_search"
+  ],
+  "capability_params": [
+    "frequency_penalty",
+    "logprobs",
+    "max_tokens",
+    "n",
+    "parallel_tool_calls",
+    "presence_penalty",
+    "reasoning_effort",
+    "reasoning_split",
+    "response_format",
+    "seed",
+    "stop",
+    "stream",
+    "stream_options",
+    "temperature",
+    "thinking",
+    "tool_choice",
+    "tools",
+    "top_logprobs",
+    "top_p"
+  ]
+}

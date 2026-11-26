@@ -1,0 +1,33 @@
+-- 2026-05-26 HA Commit B-1 follow-up: tighten publisher_revision_seq from
+-- CACHE 100 to CACHE 1.
+--
+-- Bug caught by integration verification 2026-05-26 (2-publisher local
+-- run). With CACHE 100, each PG connection pre-allocates a 100-value
+-- range; cross-connection nextval is NOT strictly monotonic. Concrete
+-- failure:
+--
+--   Pod A connection holds cache [101..200]
+--   Pod B connection holds cache [301..400]
+--   Pod A allocates rev=202 for SetKeyBalance(k, true)
+--   Pod B allocates rev=301 for SetKeyBalance(k, false)
+--   Worker delivers B's row first: Redis sidecar = 301
+--   Worker delivers A's row second: Lua CAS sees 202 <= 301 → STALE REJECT
+--
+-- The reject is the correct "self-protective" behaviour of the CAS, but
+-- the client sent `SetKeyBalance(k, true)` AFTER the false flip in
+-- wall-clock time and got HTTP 202 — their expectation is that Redis
+-- ends at "1". The Lua write was silently dropped because the revision
+-- claim is invalid (the sequence's "monotonic" property doesn't hold
+-- across cached connections).
+--
+-- CACHE 1 makes every nextval go to the sequence's authoritative
+-- backend storage in PG, guaranteeing global monotonicity at the cost
+-- of one extra btree page touch per allocation (~50µs). At billing-
+-- consumer call rates this is negligible.
+--
+-- Application-side: publisher pods must drop their stale per-connection
+-- caches by recycling connections. Easiest: rolling restart of all
+-- publisher pods after this migration applies. After restart all new
+-- connections will use CACHE 1.
+
+ALTER SEQUENCE publisher_revision_seq CACHE 1;

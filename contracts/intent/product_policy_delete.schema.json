@@ -1,0 +1,20 @@
+{
+  "$id": "https://tokenplatform.local/contracts/intent/product_policy_delete.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "product_id": {
+      "type": "string"
+    },
+    "revision": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "product_id",
+    "revision"
+  ],
+  "title": "ProductPolicyDelete",
+  "type": "object",
+  "version": 1
+}

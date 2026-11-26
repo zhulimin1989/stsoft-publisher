@@ -1,0 +1,36 @@
+{
+  "schema_version": 1,
+  "revision": 1700000000000000,
+  "id": "pc_invalid_dedicated_model",
+  "code": "invalid-dedicated-model",
+  "name": "Invalid dedicated provider with model route",
+  "base_url": "https://api.invalid.example",
+  "status": "active",
+  "provider_profile": "openai_compatible",
+  "visibility": "dedicated_only",
+  "credential_source": "dedicated_upstream",
+  "allowed_route_kinds": [
+    "dedicated_route",
+    "model_route"
+  ],
+  "owner_scope": {
+    "tenant_id": "tenant_demo"
+  },
+  "protocol_bindings": [
+    {
+      "name": "openai-chat",
+      "accepts": [
+        {
+          "protocol": "openai",
+          "capabilities": [
+            "chat"
+          ],
+          "request_contract": "chat_completions"
+        }
+      ],
+      "outbound_protocol": "openai",
+      "auth_scheme": "bearer"
+    }
+  ],
+  "default_protocol_binding": "openai-chat"
+}

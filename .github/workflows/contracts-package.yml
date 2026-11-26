@@ -1,0 +1,105 @@
+name: contracts-package
+
+on:
+  pull_request:
+    paths:
+      - "contracts/**"
+      - "internal/intent/**"
+      - "internal/publisher/**"
+      - "internal/types/**"
+      - ".github/workflows/contracts-package.yml"
+  push:
+    tags:
+      - "publisher-contracts-v*"
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Guard runtime schema version bumps
+        if: github.event_name == 'pull_request'
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          set -euo pipefail
+          diff="$(git diff --unified=0 "$BASE_SHA" "$HEAD_SHA" -- internal/publisher/impl.go || true)"
+          if printf '%s\n' "$diff" | grep -E '^[+-][[:space:]]*Current[A-Za-z0-9]+SchemaVersion[[:space:]]*='; then
+            marker_text="$(printf '%s\n%s\n' "$PR_TITLE" "$PR_BODY"; git log --format=%B "$BASE_SHA..$HEAD_SHA")"
+            if ! printf '%s\n' "$marker_text" | grep -q 'gateway-first:'; then
+              echo "Current*SchemaVersion changed without gateway-first: evidence marker." >&2
+              echo "Runtime schema_version bumps are reserved for breaking wire changes and must be gateway-first per ADR-0007." >&2
+              exit 1
+            fi
+          fi
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: contracts/package/package-lock.json
+      - name: Install package dependencies
+        working-directory: contracts/package
+        run: npm ci
+      - name: Build generated package artifacts
+        working-directory: contracts/package
+        run: npm run build
+      - name: Validate golden fixtures with generated AJV validators
+        working-directory: contracts/package
+        run: npm run validate:golden
+      - name: Run publisher Go contract tests over golden fixtures
+        run: go test ./internal/types ./internal/intent -run 'TestProtocolBindingsCapabilityAxesFrozen|TestRuntimeGoldenFixturesDecodeIntoGoContracts|TestRuntimeGoldenSchemaVersionsMatchPublisherConstants|TestGoldenRuntimeIntentFixturesCompile'
+      - name: Run publisher runtime schema version tripwire
+        run: go test ./internal/publisher -run 'TestRuntimeSchemaVersionTripwire|TestBuildPublishProviderRows_PreservesBridgeInPayload'
+
+  publish:
+    if: github.event_name == 'release' || startsWith(github.ref, 'refs/tags/publisher-contracts-v')
+    needs: validate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://npm.pkg.github.com
+          scope: "@raytone-lab"
+          cache: npm
+          cache-dependency-path: contracts/package/package-lock.json
+      - name: Install package dependencies
+        working-directory: contracts/package
+        run: npm ci
+      - name: Check release tag matches contracts version
+        working-directory: contracts/package
+        env:
+          RELEASE_TAG: ${{ github.event.release.tag_name }}
+        run: |
+          set -euo pipefail
+          version="$(cat ../VERSION)"
+          tag="${RELEASE_TAG:-${GITHUB_REF_NAME}}"
+          if [ "$tag" != "publisher-contracts-v${version}" ]; then
+            echo "release/tag ${tag} must equal publisher-contracts-v${version}" >&2
+            exit 1
+          fi
+      - name: Build generated package artifacts
+        working-directory: contracts/package
+        run: npm run build
+      - name: Publish package
+        working-directory: contracts/package
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm publish

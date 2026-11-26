@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "revision": 1700000000000000,
+  "model_id": "kimi-k2.6",
+  "provider_strategy": "priority",
+  "providers": [
+    {
+      "provider_id": "pc_101",
+      "upstream_model": "kimi-k2.6",
+      "priority": 1,
+      "weight": 100,
+      "status": "active",
+      "capabilities": [
+        "chat"
+      ]
+    },
+    {
+      "provider_id": "pc_102",
+      "upstream_model": "kimi-k2.6",
+      "priority": 2,
+      "weight": 50,
+      "status": "active",
+      "capabilities": [
+        "chat"
+      ]
+    }
+  ],
+  "default_policy": {
+    "preferred_providers": [
+      "pc_101"
+    ],
+    "allow_fallback": true,
+    "required_capabilities": [
+      "chat"
+    ]
+  }
+}

@@ -1,0 +1,80 @@
+{
+  "$id": "https://tokenplatform.local/contracts/intent/product_route_policy.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "allow_bridge_on_native_failure": {
+      "default": false,
+      "type": "boolean"
+    },
+    "allow_high_loss_bridge_when_no_native": {
+      "default": false,
+      "type": "boolean"
+    },
+    "allowed_channel_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "allowed_models": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "allowed_provider_ids": {
+      "items": {
+        "type": "string"
+      },
+      "type": "array"
+    },
+    "billing_mode": {
+      "type": "string"
+    },
+    "credential_source": {
+      "type": "string"
+    },
+    "fallback_policy": {
+      "type": "string"
+    },
+    "model_scope_mode": {
+      "type": "string"
+    },
+    "product_id": {
+      "type": "string"
+    },
+    "product_slug": {
+      "type": "string"
+    },
+    "revision": {
+      "type": "integer"
+    },
+    "route_graph": {
+      "$ref": "../runtime/product_route_graph.schema.json"
+    },
+    "route_graph_enforcement": {
+      "type": "string"
+    },
+    "route_graph_required": {
+      "type": "boolean"
+    },
+    "route_strategy": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "product_id",
+    "status",
+    "credential_source",
+    "model_scope_mode",
+    "fallback_policy",
+    "billing_mode"
+  ],
+  "title": "ProductRoutePolicy",
+  "type": "object",
+  "version": 1
+}

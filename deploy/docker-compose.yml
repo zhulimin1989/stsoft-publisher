@@ -1,0 +1,17 @@
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: tokenplatform_publisher
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      # No default — set POSTGRES_PASSWORD in a local .env (gitignored)
+      # or export before `docker compose up`. Failing fast here keeps
+      # credentials out of tracked files.
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+    ports:
+      - "6379:6379"

@@ -1,0 +1,311 @@
+{
+  "$id": "https://schemas.tokenplatform.dev/publisher/runtime/platform_config.v1.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "attempt_timeout_ms": {
+      "type": "integer"
+    },
+    "auth": {
+      "additionalProperties": false,
+      "properties": {
+        "abuse_ban_ttl_sec": {
+          "type": "integer"
+        },
+        "abuse_fail_threshold": {
+          "type": "integer"
+        },
+        "abuse_window_sec": {
+          "type": "integer"
+        },
+        "idempotency_ttl_sec": {
+          "type": "integer"
+        },
+        "pre_auth_ip_rpm": {
+          "type": "integer"
+        },
+        "pre_auth_ip_window_ms": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "default_keypool_strategy": {
+      "type": "string"
+    },
+    "default_provider_strategy": {
+      "type": "string"
+    },
+    "default_route_policy": {
+      "additionalProperties": false,
+      "properties": {
+        "allow_fallback": {
+          "type": "boolean"
+        }
+      },
+      "type": "object"
+    },
+    "default_timeout_ms": {
+      "type": "integer"
+    },
+    "disclosure_policy": {
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "type": "string"
+        },
+        "overrides": {
+          "additionalProperties": false,
+          "properties": {
+            "expose_actual_model": {
+              "type": "boolean"
+            },
+            "expose_provider_account": {
+              "type": "boolean"
+            },
+            "expose_provider_name": {
+              "type": "boolean"
+            },
+            "expose_upstream_raw_body": {
+              "type": "boolean"
+            },
+            "expose_upstream_status": {
+              "type": "boolean"
+            },
+            "model_field_strategy": {
+              "type": "string"
+            },
+            "passthrough_system_fingerprint": {
+              "type": "boolean"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
+    "first_token_timeout_ms": {
+      "type": "integer"
+    },
+    "ingress_product_assertions": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "allowed_products": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "mode": {
+            "type": "string"
+          },
+          "pattern": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "allowed_products",
+          "pattern"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "max_body_size": {
+      "type": "integer"
+    },
+    "max_fallback_depth": {
+      "type": "integer"
+    },
+    "operational": {
+      "additionalProperties": false,
+      "properties": {
+        "full_detail_attr": {
+          "type": "string"
+        },
+        "idempotency_attr": {
+          "type": "string"
+        },
+        "kafka_partition_attr": {
+          "type": "string"
+        }
+      },
+      "type": "object"
+    },
+    "platform_cc": {
+      "type": "integer"
+    },
+    "platform_rpm": {
+      "type": "integer"
+    },
+    "provider_budget_policies": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "conditions": {
+            "additionalProperties": false,
+            "properties": {
+              "call_types": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "effective_from": {
+                "type": "string"
+              },
+              "effective_to": {
+                "type": "string"
+              },
+              "models": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "protocols": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              },
+              "providers": {
+                "items": {
+                  "type": "string"
+                },
+                "type": "array"
+              }
+            },
+            "type": "object"
+          },
+          "control_semantic": {
+            "type": "string"
+          },
+          "enforcement_mode": {
+            "type": "string"
+          },
+          "limit_value": {
+            "type": "integer"
+          },
+          "meta": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object"
+          },
+          "metric": {
+            "type": "string"
+          },
+          "period_id": {
+            "type": "string"
+          },
+          "period_kind": {
+            "type": "string"
+          },
+          "policy_id": {
+            "type": "string"
+          },
+          "policy_type": {
+            "type": "string"
+          },
+          "runtime_keys": {
+            "additionalProperties": false,
+            "properties": {
+              "count_suffix": {
+                "type": "string"
+              },
+              "family": {
+                "type": "string"
+              },
+              "lease_suffix": {
+                "type": "string"
+              },
+              "meta_suffix": {
+                "type": "string"
+              },
+              "pending_suffix": {
+                "type": "string"
+              },
+              "settled_suffix": {
+                "type": "string"
+              }
+            },
+            "type": "object"
+          },
+          "scope": {
+            "type": "string"
+          },
+          "scope_id": {
+            "type": "string"
+          },
+          "subject_side": {
+            "type": "string"
+          },
+          "unlimited": {
+            "type": "boolean"
+          },
+          "version": {
+            "type": "integer"
+          },
+          "window": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "limit_value",
+          "metric",
+          "policy_id",
+          "policy_type",
+          "scope",
+          "scope_id",
+          "version"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "responses_affinity_enabled": {
+      "type": "boolean"
+    },
+    "retry_budget": {
+      "additionalProperties": false,
+      "properties": {
+        "max_keys_per_provider": {
+          "type": "integer"
+        },
+        "max_providers": {
+          "type": "integer"
+        },
+        "total_wall_time_ms": {
+          "type": "integer"
+        }
+      },
+      "type": "object"
+    },
+    "revision": {
+      "type": "integer"
+    },
+    "schema_version": {
+      "type": "integer"
+    },
+    "stream_timeout_ms": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "attempt_timeout_ms",
+    "default_provider_strategy",
+    "default_timeout_ms",
+    "first_token_timeout_ms",
+    "max_body_size",
+    "max_fallback_depth",
+    "platform_cc",
+    "platform_rpm",
+    "revision",
+    "stream_timeout_ms"
+  ],
+  "title": "PlatformConfig",
+  "type": "object",
+  "version": 1
+}

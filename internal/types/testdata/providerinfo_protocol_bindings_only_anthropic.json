@@ -1,0 +1,26 @@
+{
+  "id": "anthropic-prod",
+  "protocol_bindings": [
+    {
+      "name": "anthropic-messages",
+      "priority": 100,
+      "accepts": [
+        {
+          "protocol": "anthropic",
+          "capabilities": ["chat"],
+          "request_contract": "anthropic_messages",
+          "models": ["claude-3-5-sonnet-20241022"]
+        }
+      ],
+      "outbound_protocol": "anthropic",
+      "path_prefix": "/v1",
+      "auth_scheme": "x-api-key",
+      "translator": "passthrough",
+      "compat_api_type": "anthropic"
+    }
+  ],
+  "default_protocol_binding": "anthropic-messages",
+  "name": "Anthropic",
+  "base_url": "https://api.anthropic.com",
+  "status": "active"
+}

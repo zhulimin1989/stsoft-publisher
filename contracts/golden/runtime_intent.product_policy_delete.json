@@ -1,0 +1,9 @@
+{
+  "schema_version": 2,
+  "product_policy_deletes": [
+    {
+      "product_id": "prod_coding",
+      "revision": 1700000000000456
+    }
+  ]
+}

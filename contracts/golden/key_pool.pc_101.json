@@ -1,0 +1,26 @@
+{
+  "meta": {
+    "schema_version": 1,
+    "revision": 1700000000000000,
+    "provider_id": "pc_101",
+    "strategy": "priority"
+  },
+  "entries": [
+    {
+      "schema_version": 1,
+      "revision": 1700000000000000,
+      "key_id": "key-a",
+      "provider_account_ref": "provider-account-kimi-main",
+      "alias": "shared-kimi-key",
+      "allowed_models": [
+        "kimi-k2.6"
+      ],
+      "ciphertext": "vault://fixture/channels/kimi-main/key-a",
+      "priority": 1,
+      "weight": 100,
+      "rpm_limit": 500,
+      "tpm_limit": 100000,
+      "status": "enabled"
+    }
+  ]
+}
